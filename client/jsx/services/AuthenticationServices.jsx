@@ -1,0 +1,30 @@
+import BaseServices from './BaseServices.jsx';
+import Constants from '../constants/Constants.jsx';
+import cookie from 'react-cookie';
+import md5 from 'js-md5'
+import VideoServices from './VideoServices.jsx';
+import AuthActions from '../actions/AuthActions.jsx';
+class AuthService extends BaseServices {
+
+    login(username, password) {
+
+        this.handlePost(Constants.LOGIN_URL,{
+            username: username,
+            password: md5(password)
+        },function(response){
+            if (response.status=="success") {
+				AuthActions.login(response.sessionId);
+                VideoServices.loadVideosList(response.sessionId);
+				cookie.save("video-rate", response.sessionId, {maxAge: 10*365*24*3600,path:'/'});
+            }
+            else if(response.error) {
+                console.log('login unsuccessful');
+                response.error.map(function(err,i){
+                    //MessageActions.addError(err);
+                })
+            }
+        });
+
+    }
+}
+export default new AuthService()
