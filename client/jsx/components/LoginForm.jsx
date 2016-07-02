@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
     }
 	
   render() {
-    var emailGlyphicon = <Glyphicon glyph="envelope" />;
+    var userGlyphicon = <Glyphicon glyph="user" />;
     var passwordGlyphicon = <Glyphicon glyph="lock" />;
 	
     return(
@@ -25,18 +25,18 @@ export default class LoginForm extends React.Component {
           <Form  role="form" className="col-xs-12 text-center"
             onValidSubmit={this._handleValidSubmit.bind(this)}
               onInvalidSubmit={this._handleInvalidSubmit.bind(this)} >
-          <div className="form-group">
+          <div className="header">
             Please Login !
           </div>
           <div className="form-group">
               <ValidatedInput
                   type="text"
                   name="username"
-                  className="form-control"
+                  className=""
                   id="username"
                   placeholder="Username"
                   validationEvent='onBlur'
-                  addonBefore={emailGlyphicon}
+                  addonBefore={userGlyphicon}
                   validate='required'
                   errorHelp={{
                     required: 'Username cannot be empty',
@@ -47,7 +47,7 @@ export default class LoginForm extends React.Component {
             <ValidatedInput
               name="password"
               type="password"
-              className="form-control"
+              className=""
               placeholder="Password"
               addonBefore={passwordGlyphicon}
               validationEvent='onBlur'

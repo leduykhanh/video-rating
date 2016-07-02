@@ -43,13 +43,12 @@ export default class BaseServices {
 
                 // Reroute if error message is forbidden
                 if(err.statusText == "FORBIDDEN" || err.statusText == "Log in is required"){
-                    cookie.remove('waach-jwt','/');
                     cookie.remove('sessionid',{path:'/'});
                 }else{
                     //MessageActions.addError(msg);
                 }
             }
-            // window.location.href = '/app/error';
+            
             if(errorCallback)
                 errorCallback(err,msg);
         }).always(function(response){

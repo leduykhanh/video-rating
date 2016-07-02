@@ -23,12 +23,18 @@ class VideoStore extends BaseStore  {
 				5
 			]
 		};
-        this._videosList = [v,v];
+        this._videosList = [];
+		this._videoDetail = null;
     }
 	_registerToActions(action) {
         switch (action.actionType) {
             case "LOADLIST":
-				this._videosList = action.list;
+				this._videosList = this._videosList.concat(action.list);
+				console.log(this._videosList);
+				this.emitChange();
+				break;
+			case "LOADDETAIL":
+				this._videoDetail = action.data;
 				this.emitChange();
 				break;
 				}
@@ -36,6 +42,9 @@ class VideoStore extends BaseStore  {
 				
 	get videosList() {
         return this._videosList;
+    }
+	get videoDetail() {
+        return this._videoDetail;
     }
 	updateVideosList(l){
 		this._videosList = l;

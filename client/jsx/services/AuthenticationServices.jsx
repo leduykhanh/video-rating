@@ -26,5 +26,14 @@ class AuthService extends BaseServices {
         });
 
     }
+	
+	logout(sessionId){
+		this.handleGet(Constants.LOGOUT_URL+"?sessionId="+sessionId,{},function(response){
+                if(response.status=="success"){
+					cookie.remove("video-rate");
+					AuthActions.logout();
+                }
+            });
+	}
 }
 export default new AuthService()

@@ -3,6 +3,7 @@ import VideosList from './VideosList.jsx';
 import LoginForm from './LoginForm.jsx';
 import LoginStore from '../stores/LoginStore.jsx';
 import VideoServices from '../services/VideoServices.jsx';
+import AuthenticationServices from '../services/AuthenticationServices.jsx';
 import { Input, Row, Col, Badge, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 export default class App extends React.Component {
 
@@ -26,13 +27,17 @@ export default class App extends React.Component {
   _onLoginListener(){
 	this.setState({sessionId:LoginStore.sessionId});
   }
+  
+  logout(){
+	AuthenticationServices.logout(this.state.sessionId);
+  }
   render() {
 	var testData = {username:'ali',password:'password'};
     var itemToRender = <LoginForm data={testData} refresh={this.refresh.bind(this)} />;
 	
 	if(this.state.sessionId){
 		itemToRender = <div>
-				<Row>Log out</Row>
+				<Button onClick={this.logout.bind(this)} className="pull-right">Log out</Button>
 				<Row><VideosList /></Row>
 				</div>;
 		}

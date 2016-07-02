@@ -17,6 +17,10 @@ class LoginStore extends BaseStore {
 				this._sessionId = action.sessionId;
 				this.emitChange();
 				break;
+			case "LOGOUT":
+				this._sessionId = null;
+				this.emitChange();
+				break;
 				}
 		}
 

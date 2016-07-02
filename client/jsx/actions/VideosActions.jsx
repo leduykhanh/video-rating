@@ -8,5 +8,12 @@ export default {
             actionType: actionType,
             list: list,
         });
+    },
+	loadVideoDetail: (data) =>{
+        var actionType="LOADDETAIL";
+        AppDispatcher.dispatch({
+            actionType: actionType,
+            data: data,
+        });
     }
 	}

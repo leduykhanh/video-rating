@@ -8,5 +8,11 @@ export default {
             actionType: actionType,
             sessionId: sessionId,
         });
-    }
+    },
+	logout: () =>{
+        var actionType="LOGOUT";
+        AppDispatcher.dispatch({
+            actionType: actionType,
+        });
+    },
 	}

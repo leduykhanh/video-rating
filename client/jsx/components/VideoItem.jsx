@@ -7,9 +7,8 @@ export default class VideoItem extends React.Component {
 
 	 constructor() {
 			super();
-
 			this.state = {
-				
+				playing:false,
 			};
 		}
 	 
@@ -25,7 +24,8 @@ export default class VideoItem extends React.Component {
 	 
 	 //To display long description in ..
 	  _getDisplayValue(realValue, maxLength) {
-			if (realValue.length <= maxLength) {
+			console.log(this.props.type);
+			if (realValue.length <= maxLength || this.props.type=="detail") {
 				return realValue;
 			} else {
 				return (
@@ -33,8 +33,17 @@ export default class VideoItem extends React.Component {
 				);
 			}
 		}
-		
+	
+	  //When start will pause the rest
+	  _onStart(){
+	  
+	  }
+	  
+	  showModal() {
+		this.props.showModal();
+		}
 	  render() {
+	  console.log("item",this.props.video);
 		return (
 		  <div className="video-item">
 			<LinkContainer to={'detail?videoId='+this.props.video._id}>
@@ -43,15 +52,17 @@ export default class VideoItem extends React.Component {
 			 <div>
 				<ReactPlayer 
 					url={this.props.video.url} 
-					playing={false} 
+					playing={this.state.playing} 
 					controls={true} 
-					width={200}
-					height={200}/>
+					width={this.props.width}
+					height={this.props.height}/>
 			 </div>
 			 <Rating 
 				value={this.caculateRating(this.props.video.ratings)} 
-				editing={false}
-				name={this.props.video._id}/>
+				editing={this.props.editing}
+				name={this.props.video._id}
+				showModal={this.showModal.bind(this)}/>
+				<span>({this.props.video.ratings.length} votes)</span>
 			 <div>{this._getDisplayValue(this.props.video.description,200)}</div>
 		  </div>
 		);
